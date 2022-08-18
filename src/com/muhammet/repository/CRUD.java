@@ -45,7 +45,7 @@ public class CRUD {
 	
 	public void ExecuteQuery(String sql) throws SQLException {
 		if(OpenConnection()) {
-			ps = conn.prepareCall(sql);
+			ps = conn.prepareCall(sql);		
 			ps.executeUpdate();
 			CloseConnection();
 		}else {
@@ -53,25 +53,15 @@ public class CRUD {
 		}
 	}
 	
-	public void findAll(String sql) throws SQLException {
+	public ResultSet findAll(String sql) throws SQLException {
 		if(OpenConnection()) {
 			ps = conn.prepareCall(sql);
-			rs = ps.executeQuery();// select sorgusu çalýþtýrýlýr ve geriye bir tablo sonuç. olarak döner
-			//rs.getArray(1);
-			//rs.getArray("ad");
-			while(rs.next()) {
-				System.out.println("Kullancý...: ");
-				//System.out.print(rs.getInt(1)+" - ");
-				//System.out.print(rs.getString(2));
-				System.out.print(rs.getInt("id"));
-				System.out.print(rs.getString("ad"));
-				
-				System.out.println();
-			}
-			
+			rs = ps.executeQuery();// select sorgusu çalýþtýrýlýr ve geriye bir tablo sonuç. olarak döner			
 			CloseConnection();
+			return rs;
 		}else {
 			System.out.println("Baðlantý Açýlamadý");
+			return null;
 		}
 	}
 	
